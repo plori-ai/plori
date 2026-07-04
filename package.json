@@ -1,5 +1,5 @@
 {
-  "name": "plori",
+  "name": "plori-mcp",
   "version": "0.1.0",
   "description": "Give your AI agent its own cloud computer. Stdio bridge to plori's hosted MCP server (https://api.plori.ai/mcp) for clients that don't speak remote MCP natively.",
   "bin": {
