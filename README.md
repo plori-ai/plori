@@ -40,12 +40,15 @@ Follow [llms-install.md](./llms-install.md), written for Cline's automated insta
 **Any other client**
 
 Native streamable-HTTP clients connect to `https://api.plori.ai/mcp` directly. Clients
-that only speak stdio can bridge:
+that only speak stdio can bridge with the [`plori` npm package](https://www.npmjs.com/package/plori)
+(a thin wrapper around `mcp-remote` with the endpoint pinned; this repository is its source):
 
 ```sh
-npx mcp-remote https://api.plori.ai/mcp
+npx plori
 # headless / CI: authenticate with an API key instead of the OAuth flow
-npx mcp-remote https://api.plori.ai/mcp --header "Authorization: Bearer plori_sk_..."
+npx plori --header "Authorization: Bearer plori_sk_..."
+# equivalent, without the wrapper:
+npx mcp-remote https://api.plori.ai/mcp
 ```
 
 API keys are minted in [Dashboard -> Settings](https://plori.ai/dashboard/settings) on

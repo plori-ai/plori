@@ -1,0 +1,36 @@
+{
+  "name": "plori",
+  "version": "0.1.0",
+  "description": "Give your AI agent its own cloud computer. Stdio bridge to plori's hosted MCP server (https://api.plori.ai/mcp) for clients that don't speak remote MCP natively.",
+  "bin": {
+    "plori": "bin/plori.js"
+  },
+  "files": [
+    "bin"
+  ],
+  "dependencies": {
+    "mcp-remote": "^0.1.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "ai-agents",
+    "plori",
+    "claude",
+    "cursor"
+  ],
+  "homepage": "https://plori.ai/mcp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plori-ai/plori.git"
+  },
+  "bugs": {
+    "email": "dev@plori.ai"
+  },
+  "author": "plori (https://plori.ai)",
+  "license": "MIT"
+}
