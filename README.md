@@ -33,6 +33,17 @@ Use the one-click [Add to Cursor](https://plori.ai/mcp) button, or add manually:
 code --add-mcp '{"name":"plori","type":"http","url":"https://api.plori.ai/mcp"}'
 ```
 
+**Codex CLI**
+
+```sh
+codex mcp add plori --url https://api.plori.ai/mcp
+codex mcp login plori
+```
+
+Codex auto-detects plori's OAuth on `login`. One-install alternative with the skill
+bundled: `codex plugin marketplace add plori-ai/codex-plugin` then `codex plugin add
+plori@plori`.
+
 **Cline**
 
 Follow [llms-install.md](./llms-install.md), written for Cline's automated installer.
