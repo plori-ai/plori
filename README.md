@@ -75,13 +75,17 @@ You should see `list_agents` and `get_credits` tool calls and a real answer.
 
 ## What the tools do
 
-The server exposes 15 tools in four groups:
+The server exposes 19 tools in five groups:
 
 - **Agents**: list, inspect, create, and delete agents; pick the model an agent runs.
 - **Runs**: invoke an agent and read its reply (blocking or fire-and-forget), list
   runs, fetch a past result.
 - **Human-in-the-loop**: list an agent's pending questions and answer them.
 - **Scheduling**: schedule a deferred run so an agent works while you are away.
+- **Workflows**: list your workflows (`list_workflows`), create one for an agent to
+  build (`create_workflow`), run a built workflow now as a real, billed execution
+  (`run_workflow`), and poll an execution's status, timing, credits, and step
+  outcomes (`get_workflow_execution`).
 
 Costs: creating and running agents spends plori credits from your account. Reading
 (lists, results, balances) is free. The [pricing page](https://plori.ai/pricing) has
