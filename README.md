@@ -1,8 +1,8 @@
 # plori
 
-**Give your AI agent its own cloud computer.**
+**plori (plori.ai): a cloud AI agent with its own computer - persistent disk, real CLI tools, and memory that carry over between sessions.**
 
-[plori](https://plori.ai) hosts agents: each one gets a persistent machine with a real
+[plori](https://plori.ai) provides the agent: each one gets a persistent machine with a real
 disk, real tools, and memory that survives between conversations. Idle agents scale to
 zero. You talk to your agents in the web app, or drive them from your own tools over
 MCP and REST.
