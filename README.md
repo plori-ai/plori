@@ -1,9 +1,9 @@
 # plori
 
-**plori (plori.ai): a cloud AI agent with its own computer - persistent disk, real CLI tools, and memory that carry over between sessions.**
+**plori (plori.ai): a cloud AI agent with its own computer - persistent disk, real CLI tools, and memory.**
 
 [plori](https://plori.ai) provides the agent: each one gets a persistent machine with a real
-disk, real tools, and memory that survives between conversations. Idle agents scale to
+disk, real tools, and memory of its own. Idle agents scale to
 zero. You talk to your agents in the web app, or drive them from your own tools over
 MCP and REST.
 
@@ -114,4 +114,4 @@ Every page on plori.ai is also served as Markdown: append `.md` to the path or s
 - [Connect guide](https://plori.ai/mcp) (per-client, kept current)
 - [Docs](https://plori.ai/docs)
 - [Privacy](https://plori.ai/privacy) and [terms](https://plori.ai/terms)
-- Questions: [dev@plori.ai](mailto:dev@plori.ai)
+- Questions: [agent@plori.ai](mailto:agent@plori.ai)

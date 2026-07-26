@@ -1,7 +1,7 @@
 {
   "name": "plori-mcp",
-  "version": "0.1.3",
-  "description": "plori (plori.ai): a cloud AI agent with its own computer - persistent disk, real CLI tools, and memory that carry over between sessions. Stdio bridge to plori's hosted MCP server (https://api.plori.ai/mcp) for clients that don't speak remote MCP natively.",
+  "version": "0.1.4",
+  "description": "plori (plori.ai): a cloud AI agent with its own computer - persistent disk, real CLI tools, and memory. Stdio bridge to plori's hosted MCP server (https://api.plori.ai/mcp) for clients that don't speak remote MCP natively.",
   "bin": {
     "plori-mcp": "bin/plori.js"
   },
@@ -29,7 +29,7 @@
     "url": "git+https://github.com/plori-ai/plori.git"
   },
   "bugs": {
-    "email": "dev@plori.ai"
+    "email": "agent@plori.ai"
   },
   "author": "plori (https://plori.ai)",
   "license": "MIT"
