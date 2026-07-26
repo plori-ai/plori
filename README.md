@@ -75,7 +75,7 @@ You should see `list_agents` and `get_credits` tool calls and a real answer.
 
 ## What the tools do
 
-The server exposes 19 tools in five groups:
+The server exposes 18 tools in five groups:
 
 - **Agents**: list, inspect, create, and delete agents; pick the model an agent runs.
 - **Runs**: invoke an agent and read its reply (blocking or fire-and-forget), list
