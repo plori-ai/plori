@@ -1,0 +1,63 @@
+name: publish bridge packages
+
+# Publishes plori-mcp and @plori/mcp (same source, two names) to npm via
+# Trusted Publishing (OIDC): no npm token is stored anywhere. One-time npm-side
+# setup, per package, on npmjs.com -> package -> Settings -> Trusted Publisher:
+#   GitHub owner/repository: plori-ai/plori
+#   Workflow filename:       publish.yml
+# Retry-safe: a name whose package.json version is already on the registry is
+# skipped, so a rerun finishes a partial publish.
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          registry-url: https://registry.npmjs.org
+
+      - name: npm with OIDC trusted-publishing support
+        run: npm install -g npm@11.5.1
+
+      - name: Publish plori-mcp
+        run: |
+          local="$(node -p "require('./package.json').version")"
+          published="$(npm view plori-mcp version 2>/dev/null || echo none)"
+          if [ "$published" = "$local" ]; then
+            echo "plori-mcp@$local already on the registry; skipping"
+          else
+            npm publish
+          fi
+
+      - name: Publish @plori/mcp (same source, scoped name)
+        run: |
+          node -e "const fs=require('fs');const p=require('./package.json');p.name='@plori/mcp';fs.writeFileSync('package.json',JSON.stringify(p,null,2)+'\n')"
+          local="$(node -p "require('./package.json').version")"
+          published="$(npm view @plori/mcp version 2>/dev/null || echo none)"
+          if [ "$published" = "$local" ]; then
+            echo "@plori/mcp@$local already on the registry; skipping"
+          else
+            npm publish --access public
+          fi
+
+      - name: Cold-install both names
+        run: |
+          for pkg in plori-mcp @plori/mcp; do
+            v="$(npm view "$pkg" version)"
+            tmp="$(mktemp -d)"
+            npm install --prefix "$tmp" "$pkg@$v" >/dev/null
+            test -e "$tmp/node_modules/$pkg/bin/plori.js"
+            echo "$pkg@$v installs and ships bin/plori.js"
+          done
