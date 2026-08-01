@@ -82,9 +82,10 @@ The server exposes 18 tools in five groups:
   runs, fetch a past result.
 - **Human-in-the-loop**: list an agent's pending questions and answer them.
 - **Scheduling**: schedule a deferred run so an agent works while you are away.
-- **Workflows**: list your workflows (`list_workflows`), create one for an agent to
-  build (`create_workflow`), run a built workflow now as a real, billed execution
-  (`run_workflow`), and poll an execution's status, timing, credits, and step
+- **Workflows**: list every workflow or filter by holding agent / the unassigned bucket
+  (`list_workflows` with optional `agent_id` UUID or `"none"`), create one for an agent to
+  build (`create_workflow`, with optional `agent_id`), run a built workflow now as a real,
+  billed execution (`run_workflow`), and poll an execution's status, timing, credits, and step
   outcomes (`get_workflow_execution`).
 
 Costs: creating and running agents spends plori credits from your account. Reading
