@@ -75,20 +75,21 @@ You should see `list_agents` and `get_credits` tool calls and a real answer.
 
 ## What the tools do
 
-The server exposes 21 tools in five groups:
+The server exposes 24 tools in five groups:
 
 - **Agents**: list, inspect, create, and delete agents; pick the model an agent runs.
 - **Runs**: invoke an agent and read its reply (blocking or fire-and-forget), list
-  runs, fetch a past result.
+  runs, fetch a past result, or cancel an in-flight run.
 - **Human-in-the-loop**: list an agent's pending questions and answer them.
 - **Scheduling**: schedule a deferred run so an agent works while you are away.
 - **Workflows**: list every workflow or filter by holding agent / the unassigned bucket
   (`list_workflows` with optional `agent_id` UUID or `"none"`), read one with the step
-  projection pinned for execution (`get_workflow`), create one for an agent to build
-  (`create_workflow`, with optional `agent_id`), run a built workflow now as a real,
-  billed execution (`run_workflow`), and read recent execution history
-  (`list_workflow_executions`) or poll one execution's status, timing, credits, and step
-  outcomes (`get_workflow_execution`).
+  projection pinned for execution (`get_workflow`) or read an exact version's full
+  definition (`get_workflow_version`), edit a draft under compare-and-swap
+  (`edit_workflow`), create one for an agent to build (`create_workflow`, with optional
+  `agent_id`), run a built workflow now as a real, billed execution (`run_workflow`),
+  and read recent execution history (`list_workflow_executions`) or poll one execution's
+  status, timing, credits, and per-step input/output payloads (`get_workflow_execution`).
 
 Account reads round out the set: `get_credits`, `get_usage`, `get_disk`, and
 `list_connections` — your third-party OAuth providers with status, authorization and
