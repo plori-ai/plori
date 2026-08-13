@@ -65,6 +65,27 @@ npx mcp-remote https://api.plori.ai/mcp
 API keys are minted in [Dashboard -> Settings](https://plori.ai/dashboard/settings) on
 a registered account.
 
+## Or skip MCP: your own terminal
+
+The [plori CLI](https://www.npmjs.com/package/@plori/cli) is not an MCP client. It is a
+door of its own, and it opens the same live session the web app shows: the recent
+history, a prompt, streaming output, and the approval queue in one place. A turn you
+send in the terminal appears in an open browser tab as it streams.
+
+```sh
+curl -fsSL https://plori.ai/install.sh | sh
+plori login && plori attach <agent-name>
+```
+
+The installer drops one static binary in `~/.local/bin` and needs no Node; if that
+directory is not on your PATH yet, the script prints the line to add. `npm i -g
+@plori/cli` works too. The argument to `attach` is an agent name, an agent id, or a
+session id, so a session id copied out of the web app works on its own. `Ctrl-D`
+detaches and leaves the run going on the server.
+
+The terminal does not give the agent access to your local files. The shell, the disk,
+and the files are the agent's own cloud computer.
+
 ## Verify the connection
 
 Ask your client:
