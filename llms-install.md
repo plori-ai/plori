@@ -77,7 +77,8 @@ agents yet; an empty list is a correct result.
 ## Notes for the installer
 
 - Do not attempt `npm install`, `pip install`, or a git clone; there is nothing local.
-- The server exposes 15 tools (agents, runs, human-in-the-loop, scheduling). Creating
-  and invoking agents spends the user's plori credits; read-only tools are free.
+- The server exposes 24 tools (agents, runs, human-in-the-loop, scheduling, workflows,
+  and account reads). Creating and invoking agents spends the user's plori credits;
+  read-only tools are free.
 - Full connect guide: https://plori.ai/mcp (also serves Markdown with `Accept:
   text/markdown` or at https://plori.ai/mcp.md)
