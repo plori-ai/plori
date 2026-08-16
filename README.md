@@ -1,6 +1,6 @@
 # plori
 
-**plori (plori.ai): a cloud AI agent with its own computer - persistent disk, real CLI tools, and memory.**
+**plori (plori.ai): a cloud AI agent with its own persistent environment - durable disk, real CLI tools, and memory.**
 
 [plori](https://plori.ai) provides the agent: each one gets a persistent machine with a real
 disk, real tools, and memory of its own. Idle agents scale to
@@ -84,7 +84,7 @@ session id, so a session id copied out of the web app works on its own. `Ctrl-D`
 detaches and leaves the run going on the server.
 
 The terminal does not give the agent access to your local files. The shell, the disk,
-and the files are the agent's own cloud computer.
+and the files are the agent's own cloud environment.
 
 ## Verify the connection
 
