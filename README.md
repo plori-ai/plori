@@ -96,9 +96,9 @@ You should see `list_agents` and `get_credits` tool calls and a real answer.
 
 ## What the tools do
 
-The server exposes 24 tools in five groups:
+The server exposes 23 tools in five groups:
 
-- **Agents**: list, inspect, create, and delete agents; pick the model an agent runs.
+- **Agents**: list, inspect, create, and delete agents; the Plori Router chooses the model per task.
 - **Runs**: invoke an agent and read its reply (blocking or fire-and-forget), list
   runs, fetch a past result, or cancel an in-flight run.
 - **Human-in-the-loop**: list an agent's pending questions and answer them.
