@@ -9,6 +9,18 @@ at the hosted endpoint.
 - Auth: OAuth 2.1 in the browser on first use (default), or an API key header for
   headless use
 
+## Claude Code
+
+Paste this into your Claude Code conversation:
+
+> Read https://plori.ai/.well-known/agent-skills/plori/SKILL.md and install/connect Plori over MCP.
+
+Claude reads the setup instructions and configures MCP if needed. If the new server
+has not loaded, type `/reload-plugins` when Claude asks, then continue in the same
+conversation. With pairing, open the short address Claude shows, enter the code,
+sign in, and approve. You can use a phone while Claude Code runs on a remote machine.
+No installed skill or plugin is required.
+
 ## Cline
 
 Add this entry to `cline_mcp_settings.json` (Cline -> MCP Servers -> Configure):

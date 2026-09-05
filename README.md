@@ -18,9 +18,15 @@ connects; headless environments can use an API key instead.
 
 **Claude Code**
 
-```sh
-claude mcp add --transport http plori https://api.plori.ai/mcp
-```
+Paste this into your Claude Code conversation:
+
+> Read https://plori.ai/.well-known/agent-skills/plori/SKILL.md and install/connect Plori over MCP.
+
+Claude reads the setup instructions and configures MCP if needed. If the new server
+has not loaded, type `/reload-plugins` when Claude asks, then continue in the same
+conversation. With pairing, open the short address Claude shows, enter the code,
+sign in, and approve. You can use a phone while Claude Code runs on a remote machine.
+No installed skill or plugin is required.
 
 **Cursor**
 
@@ -113,7 +119,7 @@ The server exposes 23 tools in five groups:
   status, timing, credits, and per-step input/output payloads (`get_workflow_execution`).
 
 Account reads round out the set: `get_credits`, `get_usage`, `get_disk`, and
-`list_connections` — your third-party OAuth providers with status, authorization and
+`list_connections`: your third-party OAuth providers with status, authorization and
 expiry times, and the scopes configured for each. Tokens and client secrets are never
 returned.
 
