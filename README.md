@@ -105,7 +105,7 @@ You should see `list_agents` and `get_credits` tool calls and a real answer.
 The server exposes 23 tools in five groups:
 
 - **Agents**: list, inspect, create, and delete agents; the Plori Router chooses the model per task.
-- **Runs**: invoke an agent and read its reply (blocking or fire-and-forget), list
+- **Runs**: invoke an agent and read its reply (bounded wait or immediate run ID), list
   runs, fetch a past result, or cancel an in-flight run.
 - **Human-in-the-loop**: list an agent's pending questions and answer them.
 - **Scheduling**: schedule a deferred run so an agent works while you are away.
@@ -117,6 +117,13 @@ The server exposes 23 tools in five groups:
   `agent_id`), run a built workflow now as a real, billed execution (`run_workflow`),
   and read recent execution history (`list_workflow_executions`) or poll one execution's
   status, timing, credits, and per-step input/output payloads (`get_workflow_execution`).
+
+After `invoke_agent` returns a running result, continue `get_run_result` with
+`wait=true` to wait for completion or a human input request. Web approval returns
+an exact `continuation_run_id` through the original run's result. Follow that ID;
+the old run retains its historical status. Tasks-capable clients can subscribe
+to status changes. Other clients must continue polling, and an MCP connection
+alone cannot wake an idle model. The human still decides whether to approve.
 
 Account reads round out the set: `get_credits`, `get_usage`, `get_disk`, and
 `list_connections`: your third-party OAuth providers with status, authorization and
