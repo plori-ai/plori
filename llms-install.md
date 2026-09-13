@@ -13,7 +13,7 @@ at the hosted endpoint.
 
 Paste this into your Claude Code conversation:
 
-> Read https://plori.ai/.well-known/agent-skills/plori/SKILL.md and install/connect Plori over MCP.
+> Set up https://plori.ai/SKILL.md
 
 Claude reads the setup instructions and configures MCP if needed. If the new server
 has not loaded, type `/reload-plugins` when Claude asks, then continue in the same
