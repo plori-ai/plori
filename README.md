@@ -20,7 +20,7 @@ connects; headless environments can use an API key instead.
 
 Paste this into your Claude Code conversation:
 
-> Read https://plori.ai/.well-known/agent-skills/plori/SKILL.md and install/connect Plori over MCP.
+> Set up https://plori.ai/SKILL.md
 
 Claude reads the setup instructions and configures MCP if needed. If the new server
 has not loaded, type `/reload-plugins` when Claude asks, then continue in the same
@@ -102,30 +102,48 @@ You should see `list_agents` and `get_credits` tool calls and a real answer.
 
 ## What the tools do
 
-The server exposes 23 tools in five groups:
+The server exposes 23 tools in five groups.
 
-- **Agents**: list, inspect, create, and delete agents; the Plori Router chooses the model per task.
-- **Runs**: invoke an agent and read its reply (blocking or fire-and-forget), list
-  runs, fetch a past result, or cancel an in-flight run.
-- **Human-in-the-loop**: list an agent's pending questions and answer them.
-- **Scheduling**: schedule a deferred run so an agent works while you are away.
-- **Workflows**: list every workflow or filter by holding agent / the unassigned bucket
-  (`list_workflows` with optional `agent_id` UUID or `"none"`), read one with the step
-  projection pinned for execution (`get_workflow`) or read an exact version's full
-  definition (`get_workflow_version`), edit a draft under compare-and-swap
-  (`edit_workflow`), create one for an agent to build (`create_workflow`, with optional
-  `agent_id`), run a built workflow now as a real, billed execution (`run_workflow`),
-  and read recent execution history (`list_workflow_executions`) or poll one execution's
-  status, timing, credits, and per-step input/output payloads (`get_workflow_execution`).
+- **Agents** (the Plori Router picks each agent's model per task): `list_agents`
+  (your agents, with model and live session status), `get_agent` (one agent's name,
+  type, model, and status, plus its mailbox of mail from other agents on the
+  account), `create_agent` (get or create an agent by name, which reuses an existing
+  agent of that name instead of making a duplicate), `delete_agent` (permanently
+  delete an agent and revoke its disk).
+- **Runs**: `invoke_agent` (send a message and wait for the reply, with
+  `wait_seconds` to set how long to hold, `idempotency_key` to make a retry return
+  the original run, and `callback_url` plus `callback_secret` to post a signed
+  status notification to your endpoint), `get_run_result` (a run's status,
+  timestamps, credits, tokens, tool progress, and the reply once it finishes),
+  `list_runs` (an agent's run history, most recent first), `cancel_run` (stop an
+  in-flight run, which reports `cancelling` and then `cancelled`), `schedule_run`
+  (invoke an agent once later, after a delay or at a timestamp).
+- **Human-in-the-loop**: `list_pending_inputs` (runs paused on an approval or an
+  input request), `answer_pending_input` (approve, deny, or answer one, which starts
+  a continuation run).
+- **Workflows**: `list_workflows` (every workflow, or one agent's with `agent_id`,
+  or the unassigned ones with `agent_id="none"`), `get_workflow` (metadata and the
+  step projection pinned for execution), `get_workflow_version` (one exact version's
+  full definition and parameter values), `create_workflow` (an empty workflow on a
+  manual, cron, or webhook trigger, for an agent to build), `edit_workflow` (a batch
+  of constrained edits as one new draft, under compare-and-swap on `base_version`),
+  `run_workflow` (run a built workflow now, as a real, billed execution),
+  `list_workflow_executions` (recent executions with status, fault, trigger source,
+  timing, and credits), `get_workflow_execution` (one execution's per-step input and
+  output payloads).
+- **Account**: `get_credits` (balance and plan), `get_usage` (spend by meter and by
+  agent), `get_disk` (included, purchased, and used bytes), `list_connections` (your
+  third-party OAuth providers with status, authorization and expiry times, and the
+  scopes configured for each, never tokens or client secrets).
 
-Account reads round out the set: `get_credits`, `get_usage`, `get_disk`, and
-`list_connections`: your third-party OAuth providers with status, authorization and
-expiry times, and the scopes configured for each. Tokens and client secrets are never
-returned.
+A turn that is still running when the hold ends continues on the server:
+`invoke_agent` returns a `run_id` with status `running` and a `poll_after_seconds`
+delay, and you read the answer with `get_run_result` using `wait=true` (or your own
+`wait_seconds`, up to 1800).
 
 Costs: creating and running agents spends plori credits from your account. Reading
 (lists, results, balances) is free. The [pricing page](https://plori.ai/pricing) has
-the details; revoke a client's access any time in your client's settings, or revoke
+the details. Revoke a client's access any time in your client's settings, or revoke
 the API key in Dashboard -> Settings.
 
 ## For AI agents reading this
