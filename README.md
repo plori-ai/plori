@@ -102,7 +102,7 @@ You should see `list_agents` and `get_credits` tool calls and a real answer.
 
 ## What the tools do
 
-The server exposes 23 tools in five groups.
+The server exposes 24 tools in five groups.
 
 - **Agents** (the Plori Router picks each agent's model per task): `list_agents`
   (your agents, with model and live session status), `get_agent` (one agent's name,
@@ -132,7 +132,9 @@ The server exposes 23 tools in five groups.
   timing, and credits), `get_workflow_execution` (one execution's per-step input and
   output payloads).
 - **Account**: `get_credits` (balance and plan), `get_usage` (spend by meter and by
-  agent), `get_disk` (included, purchased, and used bytes), `list_connections` (your
+  agent), `get_disk` (included, purchased, and used bytes), `empty_trash` (permanently empty an
+  agent's trash so deleted files stop counting against the disk; only while that
+  agent's pod is asleep), `list_connections` (your
   third-party OAuth providers with status, authorization and expiry times, and the
   scopes configured for each, never tokens or client secrets).
 
