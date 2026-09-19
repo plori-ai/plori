@@ -102,7 +102,7 @@ You should see `list_agents` and `get_credits` tool calls and a real answer.
 
 ## What the tools do
 
-The server exposes 24 tools in five groups.
+The server exposes 25 tools in five groups.
 
 - **Agents** (the Plori Router picks each agent's model per task): `list_agents`
   (your agents, with model and live session status), `get_agent` (one agent's name,
@@ -127,7 +127,10 @@ The server exposes 24 tools in five groups.
   full definition and parameter values), `create_workflow` (an empty workflow on a
   manual, cron, or webhook trigger, for an agent to build), `edit_workflow` (a batch
   of constrained edits as one new draft, under compare-and-swap on `base_version`),
-  `run_workflow` (run a built workflow now, as a real, billed execution),
+  `set_workflow_agent` (assign one of your agents to a workflow, typically after
+  `delete_agent` reports paused workflows or `run_workflow` returns
+  `workflow_agentless`), `run_workflow` (run a built workflow now, as a real, billed
+  execution),
   `list_workflow_executions` (recent executions with status, fault, trigger source,
   timing, and credits), `get_workflow_execution` (one execution's per-step input and
   output payloads).
