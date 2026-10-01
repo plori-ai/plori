@@ -117,10 +117,13 @@ The server exposes 25 tools in five groups.
   timestamps, credits, tokens, tool progress, and the reply once it finishes),
   `list_runs` (an agent's run history, most recent first), `cancel_run` (stop an
   in-flight run, which reports `cancelling` and then `cancelled`), `schedule_run`
-  (invoke an agent once later, after a delay or at a timestamp).
+  (invoke an agent once later, after a delay or at a timestamp; it returns
+  `awaiting_confirmation` and a `confirm_url`, and the run is queued only after you
+  confirm it in the Plori web app).
 - **Human-in-the-loop**: `list_pending_inputs` (runs paused on an approval or an
-  input request), `answer_pending_input` (approve, deny, or answer one, which starts
-  a continuation run).
+  input request), `answer_pending_input` (deny one, or answer an agent's question,
+  which starts a continuation run). An MCP client cannot approve an action: each
+  paused approval carries an `approve_url` that you open in the Plori web app.
 - **Workflows**: `list_workflows` (every workflow, or one agent's with `agent_id`,
   or the unassigned ones with `agent_id="none"`), `get_workflow` (metadata and the
   step projection pinned for execution), `get_workflow_version` (one exact version's
