@@ -96,60 +96,58 @@ and the files are the agent's own cloud environment.
 
 Ask your client:
 
-> List my plori agents and tell me how many credits I have left.
+> List my plori Workspaces and tell me how many credits I have left.
 
-You should see `list_agents` and `get_credits` tool calls and a real answer.
+You should see `list_workspaces` and `get_credits` tool calls and a real answer.
 
 ## What the tools do
 
-The server exposes 25 tools in five groups.
+The server exposes 23 tools in five groups. A Workspace holds durable files with
+saved revisions, a main conversation, and run history. An agent runs in a Workspace
+with a shell and the Workspace files under `/workspace`.
 
-- **Agents** (the Plori Router picks each agent's model per task): `list_agents`
-  (your agents, with model and live session status), `get_agent` (one agent's name,
-  type, model, and status, plus its mailbox of mail from other agents on the
-  account), `create_agent` (get or create an agent by name, which reuses an existing
-  agent of that name instead of making a duplicate), `delete_agent` (permanently
-  delete an agent and revoke its disk).
-- **Runs**: `invoke_agent` (send a message and wait for the reply, with
-  `wait_seconds` to set how long to hold, `idempotency_key` to make a retry return
-  the original run, and `callback_url` plus `callback_secret` to post a signed
-  status notification to your endpoint), `get_run_result` (a run's status,
-  timestamps, credits, tokens, tool progress, and the reply once it finishes),
-  `list_runs` (an agent's run history, most recent first), `cancel_run` (stop an
-  in-flight run, which reports `cancelling` and then `cancelled`), `schedule_run`
-  (invoke an agent once later, after a delay or at a timestamp; it returns
-  `awaiting_confirmation` and a `confirm_url`, and the run is queued only after you
-  confirm it in the Plori web app).
+- **Workspaces and account**: `list_workspaces` (the Workspaces you own, with state,
+  default agent, current revision, and `storage_readiness` while storage starts),
+  `create_workspace` (a Workspace with its first revision. Unless you pass
+  `default_manager_agent_id`, it also creates a default agent. `idempotency_key`
+  makes a retry return the same Workspace), `delete_workspace` (permanently delete a
+  Workspace with its files, revisions, copies, and conversations),
+  `read_workspace_file` (a file or a directory listing in a saved revision),
+  `get_workspace_costs` (the amount charged for the runs of a Workspace or of one
+  task group in a time window), `get_credits` (prepaid balance, plan, and limits).
+- **Runs**: `send_workspace_message` (send a message to a Workspace conversation and
+  wait for the reply, with `wait_seconds` to set how long to hold, `idempotency_key`
+  to make a retry return the original run, and `callback_url` plus `callback_secret`
+  to post a signed status notification to your endpoint), `get_run_result` (a run's
+  status, timestamps, credits, tokens, tool progress, and the reply once it
+  finishes), `list_runs` (an agent's run history, most recent first), `cancel_run`
+  (stop an in-flight run, which reports `cancelling` and then `cancelled`),
+  `schedule_run` (run an agent once later, after a delay or at a timestamp. It
+  returns `awaiting_confirmation` and a `confirm_url`. Plori queues the run only
+  after you confirm it in the Plori web app).
 - **Human-in-the-loop**: `list_pending_inputs` (runs paused on an approval or an
   input request), `answer_pending_input` (deny one, or answer an agent's question,
   which starts a continuation run). An MCP client cannot approve an action: each
   paused approval carries an `approve_url` that you open in the Plori web app.
-- **Workflows**: `list_workflows` (every workflow, or one agent's with `agent_id`,
-  or the unassigned ones with `agent_id="none"`), `get_workflow` (metadata and the
-  step projection pinned for execution), `get_workflow_version` (one exact version's
-  full definition and parameter values), `create_workflow` (an empty workflow on a
-  manual, cron, or webhook trigger, for an agent to build), `edit_workflow` (a batch
-  of constrained edits as one new draft, under compare-and-swap on `base_version`),
-  `set_workflow_agent` (assign one of your agents to a workflow, typically after
-  `delete_agent` reports paused workflows or `run_workflow` returns
-  `workflow_agentless`), `run_workflow` (run a built workflow now, as a real, billed
-  execution),
-  `list_workflow_executions` (recent executions with status, fault, trigger source,
-  timing, and credits), `get_workflow_execution` (one execution's per-step input and
-  output payloads).
-- **Account**: `get_credits` (balance and plan), `get_usage` (spend by meter and by
-  agent), `get_disk` (included, purchased, and used bytes), `empty_trash` (permanently empty an
-  agent's trash so deleted files stop counting against the disk; only while that
-  agent's pod is asleep), `list_connections` (your
-  third-party OAuth providers with status, authorization and expiry times, and the
-  scopes configured for each, never tokens or client secrets).
+- **Workers**: `create_workspace_worker` (start an agent on its own copy of the
+  Workspace files, so several workers run at the same time without changing each
+  other's files), `list_workspace_workers` and `get_workspace_worker` (status, run,
+  and whether Plori saved the worker's files), `steer_workspace_worker` (send a
+  message into a running worker's turn), `stop_workspace_task_group` (stop every
+  worker of a task group).
+- **Changesets**: `submit_workspace_changeset` (submit a worker's saved files for
+  review against the Workspace's current files), `list_workspace_changesets` and
+  `get_workspace_changeset` (state, phase, and changed and conflicting paths),
+  `accept_workspace_changeset` (the worker's changes become the Workspace's current
+  files as a new revision), `reject_workspace_changeset` (keep the Workspace files
+  as they are).
 
 A turn that is still running when the hold ends continues on the server:
-`invoke_agent` returns a `run_id` with status `running` and a `poll_after_seconds`
-delay, and you read the answer with `get_run_result` using `wait=true` (or your own
-`wait_seconds`, up to 1800).
+`send_workspace_message` returns a `run_id` with status `running` and a
+`poll_after_seconds` delay, and you read the answer with `get_run_result` using
+`wait=true` (or your own `wait_seconds`, up to 1800).
 
-Costs: creating and running agents spends plori credits from your account. Reading
+Costs: running agents spends plori credits from your account. Reading
 (lists, results, balances) is free. The [pricing page](https://plori.ai/pricing) has
 the details. Revoke a client's access any time in your client's settings, or revoke
 the API key in Dashboard -> Settings.
