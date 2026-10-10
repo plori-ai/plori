@@ -82,15 +82,15 @@ For headless machines, mint an API key at https://plori.ai/dashboard/settings
 
 ## Verify
 
-Send the prompt: "List my plori agents and tell me how many credits I have left."
-Expect `list_agents` and `get_credits` tool calls to succeed. A fresh account has no
-agents yet; an empty list is a correct result.
+Send the prompt: "List my plori Workspaces and tell me how many credits I have left."
+Expect `list_workspaces` and `get_credits` tool calls to succeed. A fresh account has no
+Workspaces yet; an empty list is a correct result.
 
 ## Notes for the installer
 
 - Do not attempt `npm install`, `pip install`, or a git clone; there is nothing local.
-- The server exposes 25 tools (agents, runs, human-in-the-loop, scheduling, workflows,
-  and account reads). Creating and invoking agents spends the user's plori credits;
+- The server exposes 23 tools (Workspaces, runs, human-in-the-loop, scheduling, workers,
+  changesets, and account reads). Running agents spends the user's plori credits;
   read-only tools are free.
 - Full connect guide: https://plori.ai/mcp (also serves Markdown with `Accept:
   text/markdown` or at https://plori.ai/mcp.md)
