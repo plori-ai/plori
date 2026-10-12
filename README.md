@@ -1,11 +1,14 @@
 # plori
 
-**plori (plori.ai): a cloud AI agent with its own persistent environment - durable disk, real CLI tools, and memory.**
+**Plori runs AI agents in Workspaces.**
 
-[plori](https://plori.ai) provides the agent: each one gets a persistent machine with a real
-disk, real tools, and memory of its own. Idle agents scale to
-zero. You talk to your agents in the web app, or drive them from your own tools over
-MCP and REST.
+[Plori](https://plori.ai) runs AI agents in cloud Workspaces that keep the agent's files,
+saved revisions and conversation, so you can review the work before you accept it.
+Several workers can run in one Workspace at the same time, each on its own copy of the
+files. A worker's changes reach the Workspace only after you accept its changeset. Only
+the Workspace files persist between runs; software a run installs elsewhere does not.
+Idle agents scale to zero. You talk to your agents in the web app, or drive them from
+your own tools over MCP and REST.
 
 This repository is the integration front door. The product itself lives at
 [plori.ai](https://plori.ai); the remote MCP server lives at `https://api.plori.ai/mcp`.
@@ -89,8 +92,8 @@ directory is not on your PATH yet, the script prints the line to add. `npm i -g
 session id, so a session id copied out of the web app works on its own. `Ctrl-D`
 detaches and leaves the run going on the server.
 
-The terminal does not give the agent access to your local files. The shell, the disk,
-and the files are the agent's own cloud environment.
+The terminal does not give the agent access to your local files. The shell and the
+Workspace files are in Plori's cloud.
 
 ## Verify the connection
 
