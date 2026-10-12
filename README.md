@@ -2,13 +2,10 @@
 
 **Plori runs AI agents in Workspaces.**
 
-[Plori](https://plori.ai) runs AI agents in cloud Workspaces that keep the agent's files,
-saved revisions and conversation, so you can review the work before you accept it.
-Several workers can run in one Workspace at the same time, each on its own copy of the
-files. A worker's changes reach the Workspace only after you accept its changeset. Only
-the Workspace files persist between runs; software a run installs elsewhere does not.
-Idle agents scale to zero. You talk to your agents in the web app, or drive them from
-your own tools over MCP and REST.
+[Plori](https://plori.ai) runs AI agents in cloud Workspaces. Several agents can work on
+one project at once, each on its own copy of the files, and Plori merges their changes
+back into the Workspace. Only the Workspace files persist between runs. You talk to your
+agents in the web app, or drive them from your own tools over MCP and REST.
 
 This repository is the integration front door. The product itself lives at
 [plori.ai](https://plori.ai); the remote MCP server lives at `https://api.plori.ai/mcp`.
