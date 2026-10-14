@@ -26,7 +26,10 @@ Claude reads the setup instructions and configures MCP if needed. If the new ser
 has not loaded, type `/reload-plugins` when Claude asks, then continue in the same
 conversation. With pairing, open the short address Claude shows, enter the code,
 sign in, and approve. You can use a phone while Claude Code runs on a remote machine.
-No installed skill or plugin is required.
+If a client policy blocks the pairing request, Claude switches to its browser OAuth
+flow. Paste the final localhost callback URL only if that browser redirect cannot
+connect, and only into that Claude Code session. No installed skill or plugin is
+required.
 
 **Cursor**
 
