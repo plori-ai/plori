@@ -1,7 +1,7 @@
 {
   "name": "plori-mcp",
-  "version": "0.1.10",
-  "description": "Plori runs AI agents in cloud Workspaces. Several agents can work on one project at once, and Plori merges their changes back into the Workspace. Stdio bridge to Plori's hosted MCP server with 24 tools (https://api.plori.ai/mcp) for clients that don't speak remote MCP natively.",
+  "version": "0.1.11",
+  "description": "Plori runs AI agents that collaborate on one product in the cloud. Stdio bridge to Plori's hosted MCP server with 24 tools (https://api.plori.ai/mcp) for clients that don't speak remote MCP natively.",
   "bin": {
     "plori-mcp": "bin/plori.js"
   },
