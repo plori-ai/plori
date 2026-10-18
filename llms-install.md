@@ -89,8 +89,11 @@ Workspaces yet; an empty list is a correct result.
 ## Notes for the installer
 
 - Do not attempt `npm install`, `pip install`, or a git clone; there is nothing local.
-- The server exposes 23 tools (Workspaces, runs, human-in-the-loop, scheduling, workers,
+- The server exposes 24 tools (Workspaces, runs, human-in-the-loop, scheduling, workers,
   changesets, and account reads). Running agents spends the user's plori credits;
   read-only tools are free.
+- `upload_workspace_file` writes a file into a Workspace's current files, replacing
+  any file at path. Pass UTF-8 text as `content`, or omit `content` for a one-time
+  `upload_url` for a larger or binary file.
 - Full connect guide: https://plori.ai/mcp (also serves Markdown with `Accept:
   text/markdown` or at https://plori.ai/mcp.md)
