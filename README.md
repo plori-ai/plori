@@ -102,7 +102,7 @@ You should see `list_workspaces` and `get_credits` tool calls and a real answer.
 
 ## What the tools do
 
-The server exposes 23 tools in five groups. A Workspace holds durable files with
+The server exposes 24 tools in five groups. A Workspace holds durable files with
 saved revisions, a main conversation, and run history. An agent runs in a Workspace
 with a shell and the Workspace files under `/workspace`.
 
@@ -113,6 +113,9 @@ with a shell and the Workspace files under `/workspace`.
   makes a retry return the same Workspace), `delete_workspace` (permanently delete a
   Workspace with its files, revisions, copies, and conversations),
   `read_workspace_file` (a file or a directory listing in a saved revision),
+  `upload_workspace_file` (write a file into a Workspace's current files, replacing
+  any file at path; pass UTF-8 text as `content`, or omit `content` for a one-time
+  `upload_url` for a larger or binary file),
   `get_workspace_costs` (the amount charged for the runs of a Workspace or of one
   task group in a time window), `get_credits` (prepaid balance, plan, and limits).
 - **Runs**: `send_workspace_message` (send a message to a Workspace conversation and
