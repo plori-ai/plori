@@ -1,10 +1,11 @@
 # plori
 
-**Plori runs AI agents in Workspaces.**
+**Plori runs AI agents that collaborate on one product in the cloud.**
 
-[Plori](https://plori.ai) runs AI agents in cloud Workspaces. Several agents can work on
-one project at once, each on its own copy of the files, and Plori merges their changes
-back into the Workspace. Only the Workspace files persist between runs. You talk to your
+[Plori](https://plori.ai) runs AI agents that collaborate on one product in the cloud.
+Code, research, content: each works on its own copy, and Plori merges their changes
+back. The agents work in a cloud Workspace that keeps the product's files with saved
+revisions. Only the Workspace files persist between runs. You talk to your
 agents in the web app, or drive them from your own tools over MCP and REST.
 
 This repository is the integration front door. The product itself lives at
@@ -123,7 +124,9 @@ with a shell and the Workspace files under `/workspace`.
   to make a retry return the original run, and `callback_url` plus `callback_secret`
   to post a signed status notification to your endpoint), `get_run_result` (a run's
   status, timestamps, credits, tokens, tool progress, and the reply once it
-  finishes), `list_runs` (an agent's run history, most recent first), `cancel_run`
+  finishes; for a Workspace manager that waits for its workers, `worker_inputs`
+  lists the workers' open questions and approvals and `next_run_id` names the
+  run that continues it), `list_runs` (an agent's run history, most recent first), `cancel_run`
   (stop an in-flight run, which reports `cancelling` and then `cancelled`),
   `schedule_run` (run an agent once later, after a delay or at a timestamp. It
   returns `awaiting_confirmation` and a `confirm_url`. Plori queues the run only
@@ -138,8 +141,11 @@ with a shell and the Workspace files under `/workspace`.
   and whether Plori saved the worker's files), `steer_workspace_worker` (send a
   message into a running worker's turn), `stop_workspace_task_group` (stop every
   worker of a task group).
-- **Changesets**: `submit_workspace_changeset` (submit a worker's saved files for
-  review against the Workspace's current files), `list_workspace_changesets` and
+- **Changesets**: when a worker's run completes normally and changes at least one
+  file, Plori submits its saved files and accepts a clean comparison itself.
+  `submit_workspace_changeset` (submit the saved files of a worker whose run ended
+  in error, was cancelled or was stopped, for comparison with the Workspace's
+  current files), `list_workspace_changesets` and
   `get_workspace_changeset` (state, phase, and changed and conflicting paths),
   `accept_workspace_changeset` (the worker's changes become the Workspace's current
   files as a new revision), `reject_workspace_changeset` (keep the Workspace files
