@@ -124,7 +124,9 @@ with a shell and the Workspace files under `/workspace`.
   to make a retry return the original run, and `callback_url` plus `callback_secret`
   to post a signed status notification to your endpoint), `get_run_result` (a run's
   status, timestamps, credits, tokens, tool progress, and the reply once it
-  finishes), `list_runs` (an agent's run history, most recent first), `cancel_run`
+  finishes; for a Workspace manager that waits for its workers, `worker_inputs`
+  lists the workers' open questions and approvals and `next_run_id` names the
+  run that continues it), `list_runs` (an agent's run history, most recent first), `cancel_run`
   (stop an in-flight run, which reports `cancelling` and then `cancelled`),
   `schedule_run` (run an agent once later, after a delay or at a timestamp. It
   returns `awaiting_confirmation` and a `confirm_url`. Plori queues the run only
